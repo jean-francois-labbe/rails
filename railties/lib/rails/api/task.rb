@@ -187,6 +187,24 @@ module Rails
       def api_dir
         "doc/rdoc"
       end
+
+      def version_options
+        <<~VERSIONS
+          <option value="https://api.rubyonrails.org/v7.0/" style="background-color: transparent;">v7.0</option>
+          <option value="https://api.rubyonrails.org/v6.1/" style="background-color: transparent;">v6.1</option>
+          <option value="https://api.rubyonrails.org/v6.0/" style="background-color: transparent;">v6.0</option>
+          <option value="https://api.rubyonrails.org/v5.2/" style="background-color: transparent;">v5.2</option>
+          <option value="https://api.rubyonrails.org/v5.1/" style="background-color: transparent;">v5.1</option>
+          <option value="https://api.rubyonrails.org/v5.0/" style="background-color: transparent;">v5.0</option>
+          <option value="https://api.rubyonrails.org/v4.2/" style="background-color: transparent;">v4.2</option>
+          <option value="https://api.rubyonrails.org/v4.1/" style="background-color: transparent;">v4.1</option>
+          <option value="https://api.rubyonrails.org/v4.0/" style="background-color: transparent;">v4.0</option>
+          <option value="https://api.rubyonrails.org/v3.2/" style="background-color: transparent;">v3.2</option>
+          <option value="https://api.rubyonrails.org/v3.1/" style="background-color: transparent;">v3.1</option>
+          <option value="https://api.rubyonrails.org/v3.0/" style="background-color: transparent;">v3.0</option>
+          <option value="https://api.rubyonrails.org/v2.3/" style="background-color: transparent;">v2.3</option>
+        VERSIONS
+      end
     end
 
     class EdgeTask < RepoTask
@@ -195,7 +213,13 @@ module Rails
       end
 
       def badge_version
-        "edge"
+        <<~VERSION
+        <select onchange="if (this.value) window.location.href=this.value" id="versions" style="appearance: none; background-color: transparent; font-family: inherit; font-size: 100%;font-weight: inherit; line-height: inherit;  color: inherit; margin: 0;padding: 0; border: none; ">
+          <option value="https://edgeapi.rubyonrails.org" style="background-color: transparent;" selected>edge</option>
+          <option value="https://api.rubyonrails.org/" style="background-color: transparent;" selected>latest</option>
+          #{version_options}
+        </select>
+        VERSION
       end
     end
 
@@ -205,7 +229,13 @@ module Rails
       end
 
       def badge_version
-        "v#{rails_version}"
+        <<~VERSIONS
+        <select onchange="if (this.value) window.location.href=this.value" id="versions" style="appearance: none; background-color: transparent; font-family: inherit; font-size: 100%;font-weight: inherit; line-height: inherit;  color: inherit; margin: 0;padding: 0; border: none; ">
+          <option value="https://edgeapi.rubyonrails.org" style="background-color: transparent;" selected>edge</option>
+          <option value="https://api.rubyonrails.org/" style="background-color: transparent;">v#{rails_version}</option>
+          #{version_options}
+        </select>
+        VERSIONS
       end
     end
   end
